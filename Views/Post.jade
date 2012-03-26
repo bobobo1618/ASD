@@ -1,0 +1,14 @@
+extends DefLayout
+
+
+
+block content
+  form(name="PostEditor", action='/entries/', method='POST')
+    textarea#bodyarea(name="bodytext")
+
+block append head
+  link(rel="stylesheet", type="text/css", src="/static/js/markitup/skins/markitup/style.css")
+  link(rel="stylesheet", type="text/css", src="/static/js/markitup/sets/markdown/style.css")
+  script(src='/static/js/markitup/jquery.markitup.js', type='text/javascript')
+  script(src='/static/js/markitup/sets/markdown/set.js', type='text/javascript')
+  script(src='/static/js/editorload.js', type='text/javascript')

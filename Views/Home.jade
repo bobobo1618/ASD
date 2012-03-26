@@ -1,62 +1,6 @@
-!!! 5
-html(lang="en")
-  head
-    block head
-      meta(charset="utf-8")
-      meta(name="viewport", content="device-width", initial-scale="1.0")
-      link(href="/static/css/bootstrap.min.css", rel="stylesheet")
-      style(type="text/css") 
-        body{padding-top:60px;padding-bottom:40px}
-        .sidebar-nav {padding:9px 0;}
-      link(href="/static/css/bootstrap-responsive.css")
-      link(rel="shortcut icon", href="/static/assets/ico/favicon.ico")
-      link(rel="apple-touch-icon-precomposed", sizes="114x114", href="../assets/ico/apple-touch-icon-114-precomposed.png")
-      link(rel="apple-touch-icon-precomposed", sizes="72x72", href="../assets/ico/apple-touch-icon-72-precomposed.png")
-      link(rel="apple-touch-icon-precomposed", href="../assets/ico/apple-touch-icon-57-precomposed.png")
-  body
-    .navbar.navbar-fixed-top
-      .navbar-inner
-        .container-fluid
-          a.btn.btn-navbar(data-toggle="collapse", data-target=".nav-collapse")
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
-          a.brand(href="/") ASD
-          .nav-collapse
-            ul.nav
-              block topnav
-                li.active
-                  a(href="/") Home
-                li
-                  a(href="/post") Post
-                li
-                  a(href="/admin") Admin
-                li
-                  a(href="/archive") Archive
-            p.navbar-text.pull-right Logged in as username.
-    .container-fluid
-      .row-fluid
-        .span3
-          .well.sidebar-nav
-            ul.nav.nav-list
-              block sidenav
-                li.nav-header Sidebar
-                li.active
-                  a(href="/") Home
-        .span9
-          .hero-unit
-            h1 Hello, world!
-            p This is the derpy thing.
-  script(src="/static/js/jquery.js")
-  script(src="/static/js/bootstrap-transition.js")
-  script(src="/static/js/bootstrap-alert.js")
-  script(src="/static/js/bootstrap-modal.js")
-  script(src="/static/js/bootstrap-dropdown.js")
-  script(src="/static/js/bootstrap-scrollspy.js")
-  script(src="/static/js/bootstrap-tab.js")
-  script(src="/static/js/bootstrap-tooltip.js")
-  script(src="/static/js/bootstrap-popover.js")
-  script(src="/static/js/bootstrap-button.js")
-  script(src="/static/js/bootstrap-collapse.js")
-  script(src="/static/js/bootstrap-carousel.js")
-  script(src="/static/js/bootstrap-typeahead.js")
+extends DefLayout
+
+block content
+  .hero-unit
+    h1 Welcome!
+    p Welcome to mah thingo.
