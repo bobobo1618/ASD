@@ -1,14 +1,43 @@
 extends DefLayout
 
-
+block append head
+  title New Post
+  link(rel="stylesheet", type="text/css", href="/static/codemirror/lib/codemirror.css")
+  link(rel="stylesheet", type="text/css", href="/static/codemirror/theme/eclipse.css")
+  script(src='/static/codemirror/lib/codemirror.js', type='text/javascript')
+  script(src='/static/codemirror/mode/xml/xml.js', type='text/javascript')
+  script(src='/static/codemirror/mode/javascript/javascript.js', type='text/javascript')
+  script(src='/static/codemirror/mode/coffeescript/coffeescript.js', type='text/javascript')
+  script(src='/static/codemirror/mode/markdown/markdown.js', type='text/javascript')
+  script(src='/static/codemirror/mode/htmlmixed/htmlmixed.js', type='text/javascript')
+  script(src='/static/js/editorload.js', type='text/javascript')
+  style(type="text/css")
+    .CodeMirror {border: 1px solid #eee; margin-top:3px; background-color: #FFF;} .CodeMirror-scroll {height: auto; overflow-y: hidden; overflow-x: auto; width: 100%}
 
 block content
-  form(name="PostEditor", action='/entries/', method='POST')
-    textarea#bodyarea(name="bodytext")
-
-block append head
-  link(rel="stylesheet", type="text/css", src="/static/js/markitup/skins/markitup/style.css")
-  link(rel="stylesheet", type="text/css", src="/static/js/markitup/sets/markdown/style.css")
-  script(src='/static/js/markitup/jquery.markitup.js', type='text/javascript')
-  script(src='/static/js/markitup/sets/markdown/set.js', type='text/javascript')
-  script(src='/static/js/editorload.js', type='text/javascript')
+  #header
+    #title
+      h1 New Post
+  #dataform
+    form.well(action="/entries/", method="post")
+      label Title:
+      input(type="text", name="title")
+      label Markup: 
+      #markdownbutton
+        .btn-group
+          button.btn.btn-mini#markdownlabel Markdown
+          button.btn.btn-mini.dropdown-toggle(data-toggle="dropdown", href="")
+            span.caret
+          ul.dropdown-menu
+            li
+              a(href="#markdown", onclick="switchMarkup({name:'markdown', display:'Markdown'})") Markdown
+            li
+              a(href="#htmlmixed", onclick="switchMarkup({name:'htmlmixed', display:'HTML'})") HTML
+      label Body: 
+      textarea(id="bodyarea", name="body", style="display: none; ")
+        | Post goes here
+      input#markdownfield(type="text", name="markup", value="markdown", style="display: none;")
+      label Tags
+      input(type="text", name="tags", value="Enter tags, separated by commas.")
+      .form-actions
+        button.btn.btn-primary(type="submit") Submit
