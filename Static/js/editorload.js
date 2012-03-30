@@ -1,4 +1,4 @@
-var editor, editorConfig, switchMarkup;
+var editor, editorConfig, submitData, switchMarkup;
 
 editor = 0;
 
@@ -25,4 +25,12 @@ switchMarkup = function(markup) {
   label.innerHTML = markup.display;
   document.getElementById('markdownfield').value = markup.name;
   return editor.setOption('mode', markup.name);
+};
+
+submitData = function() {
+  var dataform;
+  dataform = document.getElementById('dataform');
+  dataform.action = '/entries/' + encodeURIComponent(dataform.shortname.value);
+  alert(dataform.action);
+  return dataform.submit();
 };

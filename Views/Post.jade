@@ -17,27 +17,28 @@ block append head
 block content
   #header
     #title
-      h1 New Post
-  #dataform
-    form.well(action="/entries/", method="post")
-      label Title:
-      input(type="text", name="title")
-      label Markup: 
-      #markdownbutton
-        .btn-group
-          button.btn.btn-mini#markdownlabel Markdown
-          button.btn.btn-mini.dropdown-toggle(data-toggle="dropdown", href="")
-            span.caret
-          ul.dropdown-menu
-            li
-              a(href="#markdown", onclick="switchMarkup({name:'markdown', display:'Markdown'})") Markdown
-            li
-              a(href="#htmlmixed", onclick="switchMarkup({name:'htmlmixed', display:'HTML'})") HTML
-      label Body: 
-      textarea(id="bodyarea", name="body", style="display: none; ")
-        | Post goes here
-      input#markdownfield(type="text", name="markup", value="markdown", style="display: none;")
-      label Tags
-      input(type="text", name="tags", value="Enter tags, separated by commas.")
-      .form-actions
-        button.btn.btn-primary(type="submit") Submit
+      h1 New Post  
+  form.well#dataform(action="/entries/", method="post")
+    label Title:
+    input(type="text", name="title")
+    label Shortname (Cannot contain spaces, must be unique):
+    input(type="text", name="shortname")
+    label Markup: 
+    #markdownbutton
+      .btn-group
+        button.btn.btn-mini#markdownlabel Markdown
+        button.btn.btn-mini.dropdown-toggle(data-toggle="dropdown", href="")
+          span.caret
+        ul.dropdown-menu
+          li
+            a(href="#markdown", onclick="switchMarkup({name:'markdown', display:'Markdown'})") Markdown
+          li
+            a(href="#htmlmixed", onclick="switchMarkup({name:'htmlmixed', display:'HTML'})") HTML
+    label Body: 
+    textarea(id="bodyarea", name="body", style="display: none; ")
+      | Post goes here
+    input#markdownfield(type="text", name="markup", value="markdown", style="display: none;")
+    label Tags
+    input(type="text", name="tags", value="Enter tags, separated by commas.")
+    .form-actions
+      button.btn.btn-primary(type="button", onclick="submitData()") Submit

@@ -16,3 +16,9 @@ switchMarkup = (markup)->
     label.innerHTML = markup.display
     document.getElementById('markdownfield').value = markup.name
     editor.setOption 'mode', markup.name
+
+submitData = ()->
+    dataform = document.getElementById 'dataform'
+    dataform.action = '/entries/' + encodeURIComponent dataform.shortname.value
+    alert(dataform.action)
+    dataform.submit()
