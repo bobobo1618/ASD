@@ -19,6 +19,7 @@ options = {
             auto_reconnect: true
         }
         postDB: 'test'
+        postCol: 'posts'
     }
 }
 

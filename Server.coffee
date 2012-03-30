@@ -2,7 +2,6 @@ require 'coffee-script'
 express = require 'express'
 riak = require 'riak-js'
 mongo = require 'mongodb'
-#now = require 'now'
 
 config = require './Config'
 
@@ -24,7 +23,8 @@ mPostDB = new mongo.Db config.mongo.postDB, mongos
 
 rPostBucket = config.riak.postBucket
 
-#everyone = now.initialize app
+mdb = 0
+mpostcol = 0
 
 app.get '/', (req, res)->
     res.render 'Home'
@@ -33,20 +33,28 @@ app.get '/post', (req, res)->
     res.render 'Post'
 
 app.post '/entries/:id?', (req, res)->
-    if req.body 
+    if req.body
+        body = req.body
         if req.params.id
-            if riakdb.exists rPostBucket, req.params.id
-                res.render 'Error', {error:'ID is in use.'}
-            else
-                riakdb.save rPostBucket, req.params.id, req.body
-                res.render 'Error', {error:'Success!'}
+            body.id = req.params.id
+            mpostcol.findOne {id:req.params.id}, (err, item)->
+                if item
+                    res.render 'Error', {error:'ID is in use.'}
+                else if err
+                    res.render 'Error', {error:err.toString()}
+                else
+                    mpostcol.insert body, {safe:true}, (err, result)->
+                        if !err
+                            res.render 'Error', {error:'Success!'}
+                        else
+                            res.render 'Error', {error:err.toString()}
         else
             res.render 'Error', {error:'No ID was received.'}
     else
         res.render 'Error', {error:'No POST data was received.'}
 
 app.del '/entries/:id', (req, res)->
-    riakdb.remove rPostBucket, req.params.id
+    mpostcol.remove {id:req.params.id}
     res.end 'Done'
 
 app.put '/entries/:id', (req, res)->
@@ -54,16 +62,30 @@ app.put '/entries/:id', (req, res)->
     res.end 'Done'
 
 app.get '/entries/:id', (req, res)->
-    riakdb.get rPostBucket, req.params.id, (err, entry, meta)->
-        if !err
+    mpostcol.findOne {id:req.params.id}, (err, item)->
+        if !err and item
             res.writeHead 200, {'Content-Type':'text/plain'}
-            res.end entry.body
-        else
+            res.end item.body
+        else if err
             res.render 'Error', {error: err.toString()}
+        else
+            res.render 'Error', {error:'Post not found.'}
 
 app.get '/entries/:yy/:mm/:dd/:id?', (req, res)->
     res.end 'Done'
-    
-app.listen config.port, config.host
 
-console.log 'Listening on '+config.host.toString()+':'+config.port.toString()
+mPostDB.open (err,db)->
+    if !err
+        console.log 'MongoDB connected successdully.'
+        mdb = db
+        db.createCollection config.mongo.postCol, (err, collection)->
+            if !err
+                console.log 'Collection access successful.'
+                mpostcol = collection
+                app.listen config.port, config.host
+                console.log 'Listening on '+config.host.toString()+':'+config.port.toString()
+
+            else
+                console.log 'Collection access failed.'
+    else
+        console.log err
