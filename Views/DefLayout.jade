@@ -34,7 +34,14 @@ html(lang="en")
                   a(href="/admin") Admin
                 li
                   a(href="/archive") Archive
-            p.navbar-text.pull-right Logged in as username.
+            if (typeof(session.user) != 'undefined')
+              p.navbar-text.pull-right Logged in as 
+                =session.user.name
+                |.
+                a(href='/logout') Log out?
+            else
+              p.navbar-text.pull-right Not logged in. 
+                a(href='/login') Log in?
     .container-fluid
       .row-fluid
         .span2

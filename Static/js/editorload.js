@@ -30,7 +30,5 @@ switchMarkup = function(markup) {
 submitData = function() {
   var dataform;
   dataform = document.getElementById('dataform');
-  dataform.action = '/entries/' + encodeURIComponent(dataform.shortname.value);
-  alert(dataform.action);
   return dataform.submit();
 };

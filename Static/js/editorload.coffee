@@ -19,6 +19,4 @@ switchMarkup = (markup)->
 
 submitData = ()->
     dataform = document.getElementById 'dataform'
-    dataform.action = '/entries/' + encodeURIComponent dataform.shortname.value
-    alert(dataform.action)
     dataform.submit()

@@ -4,3 +4,6 @@ block content
   .hero-unit
     h1 Welcome!
     p Welcome to mah thingo.
+  each entry in results
+    p= entry.date.toString()
+    != entry.renderedBody
