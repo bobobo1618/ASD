@@ -1,0 +1,21 @@
+extends DefLayout
+
+block append head
+  title= post.title
+
+block topnav
+  li
+    a(href="/") Home
+  li
+    a(href="/post") Post
+  li
+    a(href="/admin") Admin
+  li.active
+    a(href="/archive") Archive
+
+block content
+  .date
+    p Posted on: 
+      = post.date.toString()
+  .content
+    != post.renderedBody

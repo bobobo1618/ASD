@@ -1,0 +1,14 @@
+extends DefLayout
+
+block append head
+  title Login
+
+block content
+  form.well#dataform(action="/login", method="post")
+    h1 Log in:
+    label Username:
+    input(type='text', name='username')
+    label Password:
+    input(type='password', name='password')
+    .form-actions
+      button.btn.btn-primary(type="button", onclick="submitData()") Log in
